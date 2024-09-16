@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login e Cadastro</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        input {
+            margin: 0.5rem 0;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            margin-top: 1rem;
+            padding: 0.5rem;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .toggle {
+            margin-top: 1rem;
+            text-align: center;
+        }
+        .toggle a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        #welcome {
+            display: none;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="login">
+            <h2>Login</h2>
+            <form id="loginForm">
+                <input type="email" id="loginEmail" placeholder="Email" required>
+                <input type="password" id="loginPassword" placeholder="Senha" required>
+                <button type="submit">Entrar</button>
+            </form>
+            <div class="toggle">
+                Não tem uma conta? <a href="#" id="showRegister">Cadastre-se</a>
+            </div>
+        </div>
+        
+        <div id="register" style="display: none;">
+            <h2>Cadastro</h2>
+            <form id="registerForm">
+                <input type="text" id="registerName" placeholder="Nome" required>
+                <input type="email" id="registerEmail" placeholder="Email" required>
+                <input type="password" id="registerPassword" placeholder="Senha" required>
+                <button type="submit">Cadastrar</button>
+            </form>
+            <div class="toggle">
+                Já tem uma conta? <a href="#" id="showLogin">Faça login</a>
+            </div>
+        </div>
+
+        <div id="welcome" style="display: none;">
+            <h2>Bem-vindo!</h2>
+            <p>Você está logado com sucesso.</p>
+            <button id="logout">Sair</button>
+        </div>
+    </div>
+
+    <script>
+        const loginForm = document.getElementById('loginForm');
+        const registerForm = document.getElementById('registerForm');
+        const loginDiv = document.getElementById('login');
+        const registerDiv = document.getElementById('register');
+        const welcomeDiv = document.getElementById('welcome');
+        const showRegisterLink = document.getElementById('showRegister');
+        const showLoginLink = document.getElementById('showLogin');
+        const logoutButton = document.getElementById('logout');
+
+        showRegisterLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginDiv.style.display = 'none';
+            registerDiv.style.display = 'block';
+        });
+
+        showLoginLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            registerDiv.style.display = 'none';
+            loginDiv.style.display = 'block';
+        });
+
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            // Aqui você normalmente faria uma chamada para o servidor para autenticar
+            console.log('Login:', email, password);
+            showWelcome();
+        });
+
+        registerForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('registerName').value;
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+            // Aqui você normalmente faria uma chamada para o servidor para registrar
+            console.log('Registro:', name, email, password);
+            showWelcome();
+        });
+
+        logoutButton.addEventListener('click', () => {
+            welcomeDiv.style.display = 'none';
+            loginDiv.style.display = 'block';
+            loginForm.reset();
+        });
+
+        function showWelcome() {
+            loginDiv.style.display = 'none';
+            registerDiv.style.display = 'none';
+            welcomeDiv.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
